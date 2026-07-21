@@ -1,0 +1,17 @@
+## .NET Build Artifacts
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.dbmdl
+*.dbproj
+*.schemaspublish.xml
+
+## Environment
+appsettings.Development.json
+*.local.json
+
+## Logs
+*.log
+logs/
