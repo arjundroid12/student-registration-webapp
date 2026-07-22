@@ -145,7 +145,7 @@ StudentRegistrationWebApp/
 
 ## Version History
 
-**v1 — Event Management Web App** (first iteration)
+**v1 — Event Management Web App** (first iteration) — 📂 **[full source in `v1-event-management/`](v1-event-management/)**
 - Same assignment concepts (Identity, two roles, role-based navigation, Access Denied) on an Event Management domain: Admin / User roles, Events + Participants
 - Used the default Identity UI Razor Pages for Login/Register
 - Profile data stored in a separate Participants table linked by email
