@@ -2,6 +2,30 @@
 
 ASP.NET Core MVC application with role-based authentication and authorization using ASP.NET Core Identity.
 
+**Author:** Arjun Vashishtha
+
+> **Version 2** — this is the improved second iteration of the assignment. The first iteration was built on an Event Management domain; see [Version History](#version-history) below for what changed and why.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Admin navigation](docs/screenshots/1_admin_navigation.png) | ![Student navigation](docs/screenshots/2_student_navigation.png) |
+| *Admin: Courses with Add/Edit/Delete + Students list* | *Student: welcome message, role-based menu, email in navbar* |
+| ![Course registration](docs/screenshots/5_course_registration_success.png) | ![Access denied](docs/screenshots/6_access_denied.png) |
+| *One-course registration with success message* | *Access Denied when a Student opens an admin URL* |
+
+<details>
+<summary>More screenshots (anonymous nav, login, profile, students list, SQL Server tables)</summary>
+
+![Anonymous navigation](docs/screenshots/3_anonymous_navigation.png)
+![Successful login](docs/screenshots/4_successful_login.png)
+![Student profile](docs/screenshots/7_student_profile.png)
+![Admin students list](docs/screenshots/8_admin_students_list.png)
+![SQL Server database](docs/screenshots/9_sql_server_database.png)
+
+</details>
+
 ## Features
 
 ### Authentication
@@ -50,10 +74,7 @@ ASP.NET Core MVC application with role-based authentication and authorization us
    Server=(localdb)\mssqllocaldb;Database=StudentRegistrationWebApp;Trusted_Connection=True;MultipleActiveResultSets=true
    ```
 
-4. **Apply migrations & create database**
-   - Open Package Manager Console: Tools → NuGet Package Manager → Package Manager Console
-   - Run: `Update-Database`
-   - This creates all Identity tables + application tables + seeds roles, admin, and sample courses
+4. **Database** — nothing to do. Migrations are included in the repo and applied automatically at startup (`Database.Migrate()` in `DbInitializer`), which also seeds the roles, the admin account, and the sample courses. To create the database manually instead, run `Update-Database` in Package Manager Console.
 
 5. **Run the application**
    - Press F5 or Ctrl+F5
@@ -119,3 +140,20 @@ StudentRegistrationWebApp/
 - ASP.NET Core Identity
 - SQL Server (LocalDB)
 - Bootstrap 5
+
+## Version History
+
+**v1 — Event Management Web App** (first iteration)
+- Same assignment concepts (Identity, two roles, role-based navigation, Access Denied) on an Event Management domain: Admin / User roles, Events + Participants
+- Used the default Identity UI Razor Pages for Login/Register
+- Profile data stored in a separate Participants table linked by email
+- Role assigned lazily on the first Home-page visit after signup
+- One-registration rule enforced only by a code check
+
+**v2 — Student Registration Web App** (this repository, improved)
+- Domain matches the assignment specification exactly: Admin / Student roles, Courses + CourseRegistrations
+- Custom MVC `AccountController` with hand-written Login/Register/AccessDenied views instead of the default Identity UI
+- Profile fields (FullName, Address, RegisteredOn) live on the extended `ApplicationUser` itself — the profile *is* the user
+- Student role assigned at the moment of registration
+- One-course-per-student enforced by a **unique database index** on `CourseRegistrations.StudentId`, not just code
+- Single `ApplicationDbContext` holding both Identity and application tables
