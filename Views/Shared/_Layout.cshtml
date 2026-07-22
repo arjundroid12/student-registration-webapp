@@ -1,12 +1,17 @@
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using StudentRegistrationWebApp.Data
 @using StudentRegistrationWebApp.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext DbContext
 
 @{
     var user = SignInManager.IsSignedIn(User) ? await UserManager.GetUserAsync(User) : null;
     var isAdmin = user != null && await UserManager.IsInRoleAsync(user, "Admin");
     var isStudent = user != null && await UserManager.IsInRoleAsync(user, "Student");
+    var hasRegisteredCourse = isStudent && user != null
+        && await DbContext.CourseRegistrations.AnyAsync(r => r.StudentId == user.Id);
 }
 
 <!DOCTYPE html>
@@ -40,10 +45,12 @@
                         <!-- ═══ Register for Course — Student only, if not already registered ═══ -->
                         @if (isStudent)
                         {
-                            var hasRegistration = user != null && (UserManager.GetRolesAsync(user).Result != null);
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="CourseRegistration" asp-action="Register">Register for Course</a>
-                            </li>
+                            @if (!hasRegisteredCourse)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-controller="CourseRegistration" asp-action="Register">Register for Course</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Profile" asp-action="Index">My Profile</a>
                             </li>

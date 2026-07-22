@@ -6,7 +6,7 @@
     <div class="col-md-6">
         <form asp-action="Login">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="ReturnUrl" value='@ViewData["ReturnUrl"]' />
+            <input type="hidden" name="returnUrl" value='@ViewData["ReturnUrl"]' />
             <div class="mb-3">
                 <label asp-for="Email" class="form-label"></label>
                 <input asp-for="Email" class="form-control" />

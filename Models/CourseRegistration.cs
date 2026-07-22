@@ -4,6 +4,7 @@ namespace StudentRegistrationWebApp.Models
 {
     public class CourseRegistration
     {
+        [Key]
         public int RegistrationId { get; set; }
 
         [Required]
