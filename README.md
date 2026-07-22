@@ -6,6 +6,8 @@ ASP.NET Core MVC application with role-based authentication and authorization us
 
 > **Version 2** — this is the improved second iteration of the assignment. The first iteration was built on an Event Management domain; see [Version History](#version-history) below for what changed and why.
 
+📄 **[Full submission document](docs/StudentRegistrationWebApp_Auth_Assignment_Submission.docx)** — screenshots + complete source code in one file.
+
 ## Screenshots
 
 | | |
